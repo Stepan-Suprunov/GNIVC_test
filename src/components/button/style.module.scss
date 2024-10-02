@@ -1,0 +1,28 @@
+.button {
+  align-self: end;
+  margin-top: 16px;
+  width: 45%;
+  button {
+    width: 100%;
+    border: none;
+    height: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: white;
+    background-color: rgba(96, 172, 92, 1);
+    border-radius: 4px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+    transition: all .2s ease;
+  }
+  :hover {
+    margin-top: -5px;
+    box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.3);
+    background-color: rgba(116, 204, 112, 1);
+    transition: all .2s ease;
+  }
+  :active {
+    margin-top: 0;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+    transition: all .1s ease;
+  }
+}
