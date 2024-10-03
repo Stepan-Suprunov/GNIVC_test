@@ -1,25 +1,28 @@
 import {DoubleInputLayout, MainLayout} from '../components/layouts/index';
 import {Button, Heading} from '../components/index';
 import {NameInput} from '../components/inputs/index';
+import {Form} from "../components/form";
+import {YupForm} from "../components/form/yup";
 
 export function MainPage() {
     return (
         <MainLayout>
             <Heading title='Информация о сотруднике'/>
-            <NameInput placeholder='Фамилия'/>
-            <NameInput placeholder='Имя'/>
-            <NameInput placeholder='Отчество'/>
-            <DoubleInputLayout>
-                <NameInput placeholder='Пол'/>
-                <NameInput placeholder='Дата рождения'/>
-            </DoubleInputLayout>
-            <DoubleInputLayout>
-                <NameInput placeholder='Мобильный телефон'/>
-                <NameInput placeholder='Email (необязательно)'/>
-            </DoubleInputLayout>
-            <NameInput placeholder='Адрес постоянной регистрации'/>
-            <NameInput placeholder='Название работодателя'/>
-            <Button title={'СОХРАНИТЬ'}/>
+            {/*<NameInput label='Фамилия'/>*/}
+            {/*<NameInput label='Имя'/>*/}
+            {/*<NameInput label='Отчество'/>*/}
+            {/*<DoubleInputLayout>*/}
+            {/*    <NameInput label='Пол'/>*/}
+            {/*    <NameInput label='Дата рождения'/>*/}
+            {/*</DoubleInputLayout>*/}
+            {/*<DoubleInputLayout>*/}
+            {/*    <NameInput label='Мобильный телефон'/>*/}
+            {/*    <NameInput label='Email (необязательно)'/>*/}
+            {/*</DoubleInputLayout>*/}
+            {/*<NameInput label='Адрес постоянной регистрации'/>*/}
+            {/*<NameInput label='Название работодателя'/>*/}
+            {/*<Button title={'СОХРАНИТЬ'}/>*/}
+            <YupForm/>
         </MainLayout>
     );
 };
