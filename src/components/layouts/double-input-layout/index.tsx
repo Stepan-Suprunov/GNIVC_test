@@ -12,5 +12,4 @@ export function DoubleInputLayout({children}: DoubleInputLayoutPropsType) {
             {children}
         </div>
     );
-
 };
