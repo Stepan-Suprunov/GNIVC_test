@@ -1,8 +1,7 @@
-.nameInput {
+.inputBlock {
   width: 100%;
-  .input {
-    //margin-top: 5px;
-    height: 35px;
+  .input, .input__valid {
+    height: 50px;
     border: none;
     border-radius: 4px;
     background-color: rgba(74, 74, 74, 0.1);
@@ -11,28 +10,31 @@
     width: 100%;
     padding-inline: 0;
     transition: all .2s ease;
+    padding: 15px 0 0 15px;
+    box-sizing: border-box;
 
-    padding-top: 15px;
+    &:hover {
+      background-color: white;
+      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.3);
+      transition: all .2s ease;
+    }
 
-
-
-    //&:hover {
-    //  box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.3);
-    //  transition: all .2s ease;
-    //}
-    //
     &:focus-visible {
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
-      background-color: rgba(216, 255, 214, 1);
+      background-color: white;
+      border: 1px rgba(74, 74, 74, 0.1) solid;
       outline: none;
       transition: all .2s ease;
       & ~ .label {
         bottom: 50px;
         font-size: 11px;
         transition: all .2s ease;
+        color: rgba(100, 214, 94, 1);
       }
     }
-    &:valid {
+  }
+
+  .input__valid {
+    &:valid, &:invalid {
       & ~ .label {
         bottom: 50px;
         font-size: 11px;
@@ -40,7 +42,9 @@
       }
     }
   }
+
   .label {
+    pointer-events: none;
     position: relative;
     bottom: 35px;
     left: 15px;
@@ -48,13 +52,15 @@
     font-size: 13px;
     transition: all .2s ease;
   }
-  &:hover {
-    .input{
-      box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.3);
-      transition: all .2s ease;
+
+  .errorBlock {
+    height: 0;
+    .error {
+      color: red;
+      font-size: 11px;
+      position: relative;
+      //right: 28px;
+      bottom: 23px;
     }
-  }
-  .error {
-    color: red;
   }
 }

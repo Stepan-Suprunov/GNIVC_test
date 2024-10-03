@@ -1,8 +1,12 @@
-import React from "react";
-import {useState} from "react";
+import React from 'react';
+import {useState} from 'react';
+import * as Yup from 'yup';
+import {DateInput, Input, Select} from '../inputs/index';
+import {DoubleInputLayout} from '../layouts/index';
+import {Button} from '../index';
 
 type FormDataType = {
-    lasttName: string
+    lastName: string
     firstName: string
     patronymic: string
     gender: string
@@ -27,23 +31,50 @@ export function Form() {
         employer: ''
     });
 
-    const validateForm = () => {
-        return true
-    };
+    const [errors, setErrors] = useState({
+        lastName: '',
+        firstName: '',
+        patronymic: '',
+        gender: '',
+        birthDate: '',
+        phoneNumber: '',
+        email: '',
+        registrationAdress: '',
+        employer: ''
+    });
 
-    const onSubmitHandler = (e:any) => {
+    const validationSchema = Yup.object({
+        lastName: Yup.string().required('Поле является обязательным'),
+        firstName: Yup.string().required('Поле является обязательным'),
+        patronymic: Yup.string(),
+        gender: Yup.string(),
+        birthDate: Yup.date().required('Поле является обязательным'),
+        phoneNumber: Yup.string()
+            .matches(/^\d{11}$/, 'Номер телефона введен не корректно')
+            .required('Поле является обязательным'),
+        email: Yup.string()
+            .email('Введен некорректный адрес почты')
+            .required('Поле является обязательным'),
+        registrationAdress: Yup.string(),
+        employer: Yup.string()
+    });
+
+    const onSubmitHandler = async (e: any) => {
         e.preventDefault();
-
-        const isValid:boolean = validateForm();
-        if (isValid) {
+        try {
+            await validationSchema.validate(formData, {abortEarly: false});
             alert('Форма валидна, отправляется запрос')
-        } else {
-            alert('Ошибка')
+        } catch (error: any) {
+            const newError: any = {};
+            error.inner.forEach((err: any) => {
+                newError[err.path] = err.message;
+            });
+            setErrors(newError);
         }
     };
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData({
             ...formData,
             [name]: value
@@ -51,82 +82,86 @@ export function Form() {
     };
 
     return (
-        <div>
+        <>
             <form onSubmit={onSubmitHandler}>
-                <div>
-                    <label>Фамилия</label>
-                    <input type="text"
-                           name='lastName'
-                           value={formData.lastName}
-                           onChange={onChangeHandler}
+                <Input label='Фамилия'
+                       type='text'
+                       name='lastName'
+                       value={formData.lastName}
+                       onChange={onChangeHandler}
+                       error={errors.lastName}
+                />
+                <Input label='Имя'
+                       type='text'
+                       name='firstName'
+                       value={formData.firstName}
+                       onChange={onChangeHandler}
+                       error={errors.firstName}
+                />
+                <Input label='Отчество'
+                       type='text'
+                       name='patronymic'
+                       value={formData.patronymic}
+                       onChange={onChangeHandler}
+                       error={errors.patronymic}
+                />
+                <DoubleInputLayout>
+                    <Select label='Пол'
+                            name='gender'
+                            value={formData.gender}
+                            onChange={onChangeHandler}
+                            options={[
+                                {
+                                    value: 'male',
+                                    label: 'Мужской'
+                                },
+                                {
+                                    value: 'female',
+                                    label: 'Женский'
+                                }
+                            ]}
                     />
-                </div>
-                <div>
-                    <label>Имя</label>
-                    <input type="text"
-                           name='firstName'
-                           value={formData.firstName}
-                           onChange={onChangeHandler}
+                    <DateInput label='Дата рождения'
+                               name='birthDate'
+                               value={formData.birthDate}
+                               onChange={onChangeHandler}
+                               error={errors.birthDate}
                     />
-                </div>
-                <div>
-                    <label>Отчество</label>
-                    <input type="text"
-                           name='patronymic'
-                           value={formData.patronymic}
-                           onChange={onChangeHandler}
-                    />
-                </div>
-                <div>
-                    <label>Пол</label>
-                    <select name='gender' value={formData.gender} onChange={onChangeHandler}>
-                        <option value='male'>Мужской</option>
-                        <option value='female'>Женский</option>
-                    </select>
-
-                </div>
-                <div>
-                    <label>Дата рождения</label>
-                    <input type="date"
-                           name='birthDate'
-                           value={formData.birthDate}
-                           onChange={onChangeHandler}
-                    />
-                </div>
-                <div>
-                    <label>Мобильный телефон</label>
-                    <input type="text"
+                </DoubleInputLayout>
+                <DoubleInputLayout>
+                    <Input label='Мобильный телефон'
+                           type='text'
                            name='phoneNumber'
                            value={formData.phoneNumber}
                            onChange={onChangeHandler}
+                           error={errors.phoneNumber}
                     />
-                </div>
-                <div>
-                    <label>Email (необязательно)</label>
-                    <input type="email"
+                    <Input label='Email (необязательно)'
+                           type='email'
                            name='email'
                            value={formData.email}
                            onChange={onChangeHandler}
+                           error={errors.email}
                     />
-                </div>
-                <div>
-                    <label>Адрес постоянной регистрации</label>
-                    <input type="text"
-                           name='registrationAdress'
-                           value={formData.registrationAdress}
-                           onChange={onChangeHandler}
-                    />
-                </div>
-                <div>
-                    <label>Название работодателя</label>
-                    <input type="text"
-                           name='employer'
-                           value={formData.employer}
-                           onChange={onChangeHandler}
-                    />
-                </div>
-                <button type='submit'>Сохранить</button>
+                </DoubleInputLayout>
+                <Input label='Адрес постоянной регистрации'
+                       type='text'
+                       name='registrationAdress'
+                       value={formData.registrationAdress}
+                       onChange={onChangeHandler}
+                       error={errors.registrationAdress}
+                />
+                <Input label='Название работодателя'
+                       type='text'
+                       name='employer'
+                       value={formData.employer}
+                       onChange={onChangeHandler}
+                       error={errors.employer}
+                />
+                <Button title={'СОХРАНИТЬ'}
+                        type='submit'
+                />
             </form>
-        </div>
+        </>
     );
 };

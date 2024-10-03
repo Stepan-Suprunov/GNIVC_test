@@ -1,5 +1,5 @@
 import styles from './style.module.scss'
-import React from "react";
+import React from 'react';
 
 type SelectPropsType = {
     label: string
@@ -18,6 +18,7 @@ export function Select({label, name, value, onChange, options}: SelectPropsType)
 
     return (
         <div className={styles.selectInput}>
+
             <select className={styles.select}
                     name={name}
                     value={value}
@@ -29,10 +30,10 @@ export function Select({label, name, value, onChange, options}: SelectPropsType)
                     >
                         {option.label}
                     </option>))}
-                <label className={styles.label}>
-                    {label}
-                </label>
             </select>
+            <label className={styles.label}>
+                {label}
+            </label>
         </div>
     );
 };
