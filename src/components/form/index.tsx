@@ -1,9 +1,9 @@
 import React from 'react';
 import {useState} from 'react';
-import * as Yup from 'yup';
 import {DateInput, Input, Select} from '../inputs/index';
 import {DoubleInputLayout} from '../layouts/index';
 import {Button} from '../index';
+import validationSchema from '../../utils/validation';
 
 type FormDataType = {
     lastName: string
@@ -19,7 +19,7 @@ type FormDataType = {
 
 export function Form() {
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormDataType>({
         lastName: '',
         firstName: '',
         patronymic: '',
@@ -31,7 +31,7 @@ export function Form() {
         employer: ''
     });
 
-    const [errors, setErrors] = useState({
+    const [errors, setErrors] = useState<FormDataType>({
         lastName: '',
         firstName: '',
         patronymic: '',
@@ -43,34 +43,18 @@ export function Form() {
         employer: ''
     });
 
-    const validationSchema = Yup.object({
-        lastName: Yup.string().required('Поле является обязательным'),
-        firstName: Yup.string().required('Поле является обязательным'),
-        patronymic: Yup.string(),
-        gender: Yup.string(),
-        birthDate: Yup.date().required('Поле является обязательным'),
-        phoneNumber: Yup.string()
-            .matches(/^\d{11}$/, 'Номер телефона введен не корректно')
-            .required('Поле является обязательным'),
-        email: Yup.string()
-            .email('Введен некорректный адрес почты')
-            .required('Поле является обязательным'),
-        registrationAdress: Yup.string(),
-        employer: Yup.string()
-    });
-
-    const onSubmitHandler = async (e: any) => {
+    const onSubmitHandler = async (e:  React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             await validationSchema.validate(formData, {abortEarly: false});
-            alert('Форма валидна, отправляется запрос')
+            alert('Форма валидна, отправляется запрос');
         } catch (error: any) {
             const newError: any = {};
             error.inner.forEach((err: any) => {
                 newError[err.path] = err.message;
             });
             setErrors(newError);
-        }
+        };
     };
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {

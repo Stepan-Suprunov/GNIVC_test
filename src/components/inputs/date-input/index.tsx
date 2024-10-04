@@ -14,7 +14,7 @@ export function DateInput({label, name, value, onChange, error, placeholder}: Da
 
     return (
         <div className={styles.dateInput}>
-            <input className={styles.input}
+            <input className={error ? styles.input__error : styles.input}
                    type='date'
                    name={name}
                    value={value}

@@ -14,13 +14,13 @@ export function Input({label, type, name, value, onChange, error}: NameInputProp
 
     return (
         <div className={styles.inputBlock}>
-            <input className={value ? styles.input__valid : styles.input}
+            <input className={error ? styles.input__error : styles.input}
                    type={type}
                    name={name}
                    value={value}
                    onChange={onChange}
             />
-            <label className={styles.label}>
+            <label className={value ? styles.label__valid : styles.label}>
                 {label}
             </label>
             <div className={styles.errorBlock}>

@@ -12,7 +12,7 @@ type SelectPropsType = {
 type OptionType = {
     value: string
     label: string
-}
+};
 
 export function Select({label, name, value, onChange, options}: SelectPropsType) {
 

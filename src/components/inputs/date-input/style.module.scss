@@ -1,63 +1,75 @@
 .dateInput {
-    width: 100%;
-    .input {
-        width: 100%;
-        height: 50px;
-        border: none;
-        border-radius: 4px;
-        background-color: rgba(74, 74, 74, 0.1);
-        font-family: 'Montserrat', sans-serif;
-        font-size: 15px;
-        transition: all .2s ease;
-        padding: 15px 0 0 14px;
-        box-sizing: border-box;
-        appearance: none;
-        cursor: pointer;
+  width: 100%;
+}
 
-        &:hover {
-            background-color: white;
-            box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.3);
-            transition: all .2s ease;
-        }
+.input, .input__error {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(74, 74, 74, 0.1);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  transition: all .2s ease;
+  padding: 15px 0 0 14px;
+  box-sizing: border-box;
+  appearance: none;
+  cursor: pointer;
 
-        &:focus-visible {
-            background-color: white;
-            border: 1px rgba(74, 74, 74, 0.1) solid;
-            outline: none;
-            transition: all .2s ease;
-            & ~ .label {
-                bottom: 50px;
-                font-size: 11px;
-                transition: all .2s ease;
-                color: rgba(100, 214, 94, 1);
-            }
-        }
+  &:hover {
+    background-color: white;
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.3);
+    transition: all .2s ease;
+  }
 
-        &:valid {
-            & ~ .label {
-                bottom: 50px;
-                font-size: 11px;
-                transition: all .2s ease;
-            }
-        }
+  &:focus-visible {
+    background-color: white;
+    border: 1px rgba(74, 74, 74, 0.1) solid;
+    outline: none;
+    transition: all .2s ease;
+
+    & ~ .label {
+      bottom: 50px;
+      font-size: 11px;
+      transition: all .2s ease;
+      color: rgba(100, 214, 94, 1);
     }
+  }
 
-    .label {
-        position: relative;
-        bottom: 35px;
-        left: 15px;
-        color: rgba(150, 150, 150, 1);
-        font-size: 13px;
-        transition: all .2s ease;
+  &:valid {
+    & ~ .label {
+      bottom: 50px;
+      font-size: 11px;
+      transition: all .2s ease;
     }
+  }
+}
 
-    .errorBlock {
-        height: 0;
-        .error {
-            color: red;
-            font-size: 11px;
-            position: relative;
-            bottom: 23px;
-        }
-    }
+.input__error {
+  border: 1px solid red;
+  & ~ .label {
+    bottom: 50px;
+    font-size: 11px;
+    transition: all .2s ease;
+  }
+}
+
+.label {
+  position: relative;
+  bottom: 35px;
+  left: 15px;
+  color: rgba(150, 150, 150, 1);
+  font-size: 13px;
+  transition: all .2s ease;
+}
+
+.errorBlock {
+  height: 0;
+
+  .error {
+    color: red;
+    font-size: 11px;
+    position: relative;
+    bottom: 23px;
+  }
 }
